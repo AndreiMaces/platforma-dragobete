@@ -4,13 +4,252 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Pangolin";
+        transition: 0.3s;
+      }
+
+      html body {
+        background-color: #ffb0f4;
+        background-image: url("https://slidescorner.com/wp-content/uploads/2023/01/02-Aesthetic-Valentines-Day-Wallpapers-With-Cute-Hearts-Free-For-PPT-Backgrounds-by-SlidesCorner.com_.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        backdrop-filter: brightness(90%);
+      }
+      .content {
+        width: 100%;
+        max-width: 1200px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      textarea {
+        resize: none;
+      }
+      .pentru {
+        font-size: 2rem;
+      }
+      #persoana {
+        background: none;
+        border: none;
+        border-bottom: 1px solid #ba274d;
+        color: #ba274d;
+        outline: none;
+        width: 2rem;
+      }
+      #text {
+        outline: none;
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        box-shadow: 1px 1px 20px 0#ba274e57;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        padding: 1rem;
+      }
+
+      .resizing-input {
+        display: inline;
+      }
+      .resizing-input input,
+      .resizing-input span {
+        font-size: 2rem;
+        white-space: pre;
+        padding: 5px;
+        transition: 0s;
+      }
+      button {
+        border: none;
+        background-color: #ba274d;
+        color: white;
+        box-sizing: border-box;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+      }
+
+      button:hover {
+        background-color: white;
+        color: #ba274d;
+      }
+
+      /* width */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: none;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #ba274d;
+        border-radius: 1rem;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #bd1340;
+      }
+
+      .heart {
+        width: 50px;
+        height: auto;
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .relative:hover .heart {
+        opacity: 1;
+      }
+
+      .heart-1 {
+        rotate: -60deg;
+      }
+
+      .relative:hover .heart-1 {
+        top: -20px;
+        left: -80px;
+      }
+
+      .heart-2 {
+        scale: 0.8;
+        rotate: -25deg;
+      }
+
+      .relative:hover .heart-2 {
+        top: -50px;
+        left: -50px;
+      }
+
+      .heart-3 {
+        scale: 0.8;
+        rotate: -90deg;
+      }
+
+      .relative:hover .heart-3 {
+        top: 25px;
+        left: -50px;
+      }
+
+      @media only screen and (max-width: 996px) {
+        .heart {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body>
-    <form action="/" method="post">
-      <label for="text">Mesaj:</label>
-      <textarea name="text" id="text" cols="30" rows="10"></textarea>
-      <button>Trimite</button>
-    </form>
+    <div class="content">
+      <form action="/" method="post">
+        <div>
+          <label for="persoana" class="pentru">Pentru </label>
+          <div class="resizing-input">
+            <input type="text" name="persoana" id="persoana" />
+            <span style="display: none"></span>
+          </div>
+        </div>
+
+        <div class="form-group relative">
+          <img
+            src="https://freesvg.org/img/heart-15.png"
+            class="heart heart-1"
+          />
+          <img
+            src="https://freesvg.org/img/heart-15.png"
+            class="heart heart-2"
+          />
+          <img
+            src="https://freesvg.org/img/heart-15.png"
+            class="heart heart-3"
+          />
+          <textarea
+            name="text"
+            id="text"
+            cols="30"
+            rows="20"
+            id="text"
+          ></textarea>
+        </div>
+        <button>Trimite</button>
+      </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var $inputs = $(".resizing-input");
+
+        // Resize based on text if text.length > 0
+        // Otherwise resize based on the placeholder
+        function resizeForText(text) {
+          var $this = $(this);
+          if (!text.trim()) {
+            text = $this.attr("placeholder").trim();
+          }
+          var $span = $this.parent().find("span");
+          $span.text(text);
+          var $inputSize = $span.width();
+          $this.css("width", $inputSize);
+        }
+
+        $inputs.find("input").keypress(function (e) {
+          if (e.which && e.charCode) {
+            var c = String.fromCharCode(e.keyCode | e.charCode);
+            var $this = $(this);
+            resizeForText.call($this, $this.val() + c);
+          }
+        });
+
+        // Backspace event only fires for keyup
+        $inputs.find("input").keyup(function (e) {
+          if (e.keyCode === 8 || e.keyCode === 46) {
+            resizeForText.call($(this), $(this).val());
+          }
+        });
+
+        $inputs.find("input").each(function () {
+          var $this = $(this);
+          resizeForText.call($this, $this.val());
+        });
+      });
+    </script>
   </body>
 </html>
