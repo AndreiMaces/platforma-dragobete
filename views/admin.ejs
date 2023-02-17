@@ -1,0 +1,35 @@
+<% layout("shared/layout.ejs") -%>
+<div class="d-flex flex-column">
+  <%raspunsuri.forEach(raspuns => { %>
+  <div class="raspuns">
+    <div class="persoana"><%= raspuns.persoana %></div>
+    <div class="text"><%= raspuns.text %></div>
+  </div>
+  <%})%>
+  <style>
+    * {
+      transition: 0s;
+    }
+
+    .raspuns {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ba274d;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 1px 1px 20px 0#ba274e57;
+    }
+    .persoana::before {
+      content: "Pentru ";
+    }
+
+    .persoana::after {
+      content: ": ";
+    }
+    .persoana {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</div>
