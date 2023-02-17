@@ -32,11 +32,13 @@ app.get("/admin", async (req, res) => {
     res.redirect("/");
   }
   const raspunsuri = await modelMesaj.find({});
-  console.log(raspunsuri);
   res.render("admin", { raspunsuri });
 });
 
 app.delete("/admin", async (req, res) => {
+  if (req.query.password !== "Astronaut123") {
+    res.redirect("/");
+  }
   await modelMesaj.deleteMany({});
   res.redirect("/admin");
 });
