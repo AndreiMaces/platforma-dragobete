@@ -7,7 +7,12 @@ const ejs = require("ejs");
 const { default: mongoose } = require("mongoose");
 const PORT = process.env.PORT;
 
-const modelMesaj = mongoose.model("Mesaj", { persoana: String, text: String });
+const modelMesaj = mongoose.model("Mesaj", {
+  nume: String,
+  specializare: String,
+  an: Number,
+  mesaj: String,
+});
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
@@ -20,11 +25,7 @@ app.set("view engine", "ejs");
 app.engine("ejs", ejsMate);
 
 app.get("/", (req, res) => {
-  res.render("index", {
-    persoana: "",
-    mesaj: "",
-    error: "",
-  });
+  res.render("index");
 });
 
 app.get("/admin", async (req, res) => {
@@ -32,6 +33,7 @@ app.get("/admin", async (req, res) => {
     res.redirect("/");
   }
   const raspunsuri = await modelMesaj.find({});
+  console.log(raspunsuri);
   res.render("admin", { raspunsuri });
 });
 
@@ -44,23 +46,7 @@ app.delete("/admin", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  if (!req.body.persoana)
-    return res.render("index", {
-      persoana: "",
-      mesaj: req.body.text ?? "",
-      error: "Numele persoanei trebuie introdus!",
-    });
-  if (req.body.text.length < 1 || req.body.text.length > 5000)
-    return res.render("index", {
-      persoana: req.body.persoana ?? "",
-      mesaj: "",
-      error: "Mesajul trebuie sa contina maxim 5000 de caractere",
-    });
-
-  const mesaj = await new modelMesaj({
-    persoana: req.body.persoana,
-    text: req.body.text,
-  });
+  const mesaj = await new modelMesaj(req.body);
   mesaj.save();
   res.render("success");
 });

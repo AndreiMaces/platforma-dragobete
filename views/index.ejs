@@ -1,54 +1,103 @@
-<% layout("shared/layout.ejs") -%> <%if(!error){%>
-<div class="inceput">
-  <div>
-    <p class="mb-3">Dragi studenti,</p>
-    <p class="mb-3">
-      Cu ocazia Dragobetelui, echipa CSMI organizeaza un schimb de scrisori
-      anonim pentru a va permite sa transmiteti un mesaj special unei persoane
-      dragi fara a dezvalui identitatea voastra. Folositi platforma noastra
-      pentru a scrie un mesaj si a alege destinatarul, iar acesta va primi
-      mesajul la timp pentru Dragobete. Asadar, nu pierdeti ocazia de a face
-      ziua cuiva mai speciala prin intermediul unui mesaj anonim. Pentru a
-      accesa formularul nostru pentru schimbul de scrisori anonim cu ocazia
-      Dragobetelui, va rugam sa dati scroll in jos. Formularul se va afisa
-      imediat sub acest text.
-    </p>
-    <p>
-      Cu drag,<br />
-      Echipa CSMI
-    </p>
+<% layout("shared/layout.ejs") -%>
+<div class="p-5">
+  <p>Dragi colegi,</p>
+
+  <p>
+    Cu ocazia Dragobetelui, echipa CSMI organizeaza un schimb de scrisori anonim
+    pentru a va permite sa transmiteti un mesaj special unei persoane dragi fara
+    a va dezvalui identitatea. Trimiterea scrisorii se poate face fie fizic prin
+    introducerea scrisorii in urna amplasata langa Aula B sau online prin
+    intermediul acestei platforme.
+  </p>
+  <p>
+    Pe data de 24 in intervalul 11:00 - 13:00 puteti veni in locul in care este
+    amplasata urna pentru a va revendica scrisorile.
+  </p>
+  <p class="text-end">
+    Cu drag,<br />
+    Echipa CSMI
+  </p>
+</div>
+<div class="d-flex justify-content-center align-items-center py-5">
+  <div class="col-12 col-md-6 p-3">
+    <form class="needs-validation" method="POST" action="/" novalidate>
+      <div class="mb-3">
+        <label for="nume" class="form-label fw-bold">Numele persoanei</label>
+        <input
+          type="text"
+          class="form-control"
+          name="nume"
+          id="nume"
+          required
+          maxlength="300"
+        />
+        <div class="invalid-feedback">Acest camp trebuie completat.</div>
+      </div>
+      <div class="mb-3">
+        <label for="specializare" class="form-label fw-bold"
+          >Specializarea</label
+        >
+        <input
+          type="text"
+          name="specializare"
+          class="form-control"
+          id="specializare"
+          required
+          maxlength="300"
+        />
+        <div class="invalid-feedback">Acest camp trebuie completat.</div>
+      </div>
+      <div class="mb-3">
+        <label for="an" class="form-label fw-bold">Anul de studiu</label>
+        <input
+          type="number"
+          class="form-control"
+          id="an"
+          name="an"
+          required
+          max="3"
+        />
+        <div class="invalid-feedback">Acest camp trebuie completat.</div>
+      </div>
+      <div class="mb-3">
+        <label for="mesaj" class="form-label fw-bold">Mesajul tau:</label>
+        <textarea
+          class="form-control resize-none"
+          name="mesaj"
+          id="mesaj"
+          cols="30"
+          rows="10"
+          maxlength="5000"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Acest camp trebuie completat.</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Trimite</button>
+    </form>
   </div>
 </div>
-<%}%>
-<div class="fullheight">
-  <form action="/" method="post">
-    <div class="d-flex">
-      <label for="persoana" class="pentru">Pentru: </label>
-      <input
-        type="text"
-        name="persoana"
-        id="persoana"
-        value="<%= persoana %>"
-        placeholder="Numele persoanei"
-      />
-    </div>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    "use strict";
 
-    <div class="form-group relative">
-      <img src="https://freesvg.org/img/heart-15.png" class="heart heart-1" />
-      <img src="https://freesvg.org/img/heart-15.png" class="heart heart-2" />
-      <img src="https://freesvg.org/img/heart-15.png" class="heart heart-3" />
-      <textarea
-        name="text"
-        id="text"
-        cols="30"
-        rows="20"
-        id="text"
-        placeholder="Scrie aici mesajul tau"
-      >
-<%= mesaj %></textarea
-      >
-      <span><%= error %></span>
-    </div>
-    <button>Trimite</button>
-  </form>
-</div>
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>
