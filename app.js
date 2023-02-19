@@ -12,6 +12,7 @@ const modelMesaj = mongoose.model("Mesaj", {
   specializare: String,
   an: Number,
   mesaj: String,
+  contact: [String],
 });
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_URL, {
@@ -46,7 +47,9 @@ app.delete("/admin", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
+  console.log(req.body);
   const mesaj = await new modelMesaj(req.body);
+  console.log(mesaj);
   mesaj.save();
   res.render("success");
 });
